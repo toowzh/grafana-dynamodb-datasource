@@ -41,15 +41,14 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
     // Return a constant for each query.
     const promises = options.targets.map(target => {
       const query = defaults(target, defaultQuery);
-      console.log('query', query);
-      console.log('from', from);
-      console.log('to', to);
-      let expressionAttributeValues: ExpressionAttributeValueMap = AWS.DynamoDB.Converter.marshall(
-        query.expressionAttributeValues
-      );
+      let expressionAttributeValues: ExpressionAttributeValueMap = AWS.DynamoDB.Converter.marshall({
+        ...query.expressionAttributeValues,
+        ':from': from / 1000,
+        ':to': to / 1000,
+      });
       const queryInput: AWS.DynamoDB.QueryInput = {
         TableName: query.tableName,
-        KeyConditionExpression: query.keyConditionExpression,
+        KeyConditionExpression: `${query.keyConditionExpression} AND ${query.timeField} BETWEEN :from AND :to`,
         ExpressionAttributeValues: expressionAttributeValues,
       };
       return this.dynamoDB
@@ -58,7 +57,7 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
         .then(data => {
           if (data.Items && data.Items.length >= 1) {
             const items = data.Items.map(x => AWS.DynamoDB.Converter.unmarshall(x));
-            let timeList = items.map(x => Date.parse(x[query.timeField]));
+            let timeList = items.map(x => new Date(Number(x[query.timeField]) * 1000));
             let temp: { [key: string]: any[] } = {};
             items.forEach(x => {
               Object.keys(x).forEach(k => {
@@ -77,7 +76,6 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
                 values: temp[k],
                 type: FieldType.number,
               }));
-            console.log(values);
             const frame = new MutableDataFrame({
               refId: query.refId,
               fields: [
@@ -91,11 +89,11 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
               length: timeList.length,
             });
 
-            console.log(frame);
             return frame;
           }
           return null;
-        });
+        })
+        .catch(err => console.log(err));
     });
 
     return Promise.all(promises).then(data => ({ data }));
