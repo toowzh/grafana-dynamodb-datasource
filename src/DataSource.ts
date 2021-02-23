@@ -39,7 +39,7 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
     const to = range!.to.valueOf();
 
     // Return a constant for each query.
-    const promises = options.targets.map(target => {
+    const promises = options.targets.map((target) => {
       const query = defaults(target, defaultQuery);
       let expressionAttributeValues: ExpressionAttributeValueMap = AWS.DynamoDB.Converter.marshall({
         ...query.expressionAttributeValues,
@@ -54,28 +54,36 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
       return this.dynamoDB
         .query(queryInput)
         .promise()
-        .then(data => {
+        .then((data) => {
           if (data.Items && data.Items.length >= 1) {
-            const items = data.Items.map(x => AWS.DynamoDB.Converter.unmarshall(x));
-            let timeList = items.map(x => new Date(Number(x[query.timeField]) * 1000));
+            const items = data.Items.map((x) => AWS.DynamoDB.Converter.unmarshall(x));
+            let timeList = items.map((x) => new Date(Number(x[query.timeField]) * 1000));
             let temp: { [key: string]: any[] } = {};
-            items.forEach(x => {
-              Object.keys(x).forEach(k => {
+            items.forEach((x) => {
+              Object.keys(x).forEach((k) => {
                 temp[k] = [];
               });
             });
-            items.forEach(x => {
-              Object.keys(x).forEach(k => {
+            items.forEach((x) => {
+              const keys = Object.keys(x);
+              query.valueFields
+                .filter((k) => keys.indexOf(k) === -1)
+                .forEach((k) => {
+                  temp[k].push(null);
+                });
+              keys.forEach((k) => {
                 temp[k].push(x[k]);
               });
             });
+            console.log(items);
             const values = Object.keys(temp)
-              .filter(k => query.valueFields.indexOf(k) !== -1)
-              .map(k => ({
+              .filter((k) => query.valueFields.indexOf(k) !== -1)
+              .map((k) => ({
                 name: k,
                 values: temp[k],
                 type: FieldType.number,
               }));
+            console.log(values);
             const frame = new MutableDataFrame({
               refId: query.refId,
               fields: [
@@ -93,10 +101,10 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
           }
           return null;
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     });
 
-    return Promise.all(promises).then(data => ({ data }));
+    return Promise.all(promises).then((data) => ({ data }));
   }
 
   async testDatasource() {

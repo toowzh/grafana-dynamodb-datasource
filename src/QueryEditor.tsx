@@ -61,7 +61,7 @@ export class QueryEditor extends PureComponent<Props, State> {
 
   getTables() {
     this.dynamoDB.listTables((err, data) => {
-      const tableList = data.TableNames?.map(x => ({ label: x, value: x } as SelectableValue<string>));
+      const tableList = data.TableNames?.map((x) => ({ label: x, value: x } as SelectableValue<string>));
       if (tableList) {
         let newState = { ...this.state, tableList };
         this.setState(newState);

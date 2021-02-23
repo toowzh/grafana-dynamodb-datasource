@@ -19,13 +19,13 @@ export class ValueList extends Component<Props> {
               className="gf-form-input"
               value={value || ''}
               data-index={index}
-              onChange={e => {
+              onChange={(e) => {
                 const index = Number(e.target.dataset.index);
                 const value = e.target.value;
                 values[index] = value;
                 onChange(values);
               }}
-              onBlur={() => onChange(values.filter(x => x !== ''))}
+              onBlur={() => onChange(values.filter((x) => x !== ''))}
             />
           ))}
         <Button onClick={() => onChange([...(values || []), ''])} className="gf-form-label query-part">

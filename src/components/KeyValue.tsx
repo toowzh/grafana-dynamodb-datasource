@@ -13,14 +13,14 @@ export class KeyValue extends Component<Props> {
     return (
       <div className="gf-form">
         {keyValues &&
-          Object.keys(keyValues).map(key => [
+          Object.keys(keyValues).map((key) => [
             <input
               key={`{key}-key`}
               type="text"
               className="gf-form-input"
               value={key || ''}
               data-originkey={key}
-              onChange={e => {
+              onChange={(e) => {
                 const originKey = e.target.dataset.originkey || '';
                 const value = e.target.value;
                 if (!keyValues[value]) {
@@ -33,14 +33,16 @@ export class KeyValue extends Component<Props> {
                 }
               }}
             />,
-            <label className="gf-form-label query-keyword">=</label>,
+            <label className="gf-form-label query-keyword" key={`{key}-label`}>
+              =
+            </label>,
             <input
               key={`{key}-value`}
               type="text"
               className="gf-form-input"
               value={keyValues[key] || ''}
               data-originkey={key}
-              onChange={e => {
+              onChange={(e) => {
                 const originKey = e.target.dataset.originkey || '';
                 const value = e.target.value;
                 let newKeyValues = { ...keyValues };
