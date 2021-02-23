@@ -75,7 +75,6 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
                 temp[k].push(x[k]);
               });
             });
-            console.log(items);
             const values = Object.keys(temp)
               .filter((k) => query.valueFields.indexOf(k) !== -1)
               .map((k) => ({
@@ -83,7 +82,6 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
                 values: temp[k],
                 type: FieldType.number,
               }));
-            console.log(values);
             const frame = new MutableDataFrame({
               refId: query.refId,
               fields: [
