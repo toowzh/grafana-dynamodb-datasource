@@ -12,14 +12,14 @@ Hash: SHA512
   ],
   "plugin": "tlv-co-ltd-dynamodb-datasource",
   "version": "1.0.0",
-  "time": 1614226274157,
+  "time": 1614226553909,
   "keyId": "7e4d0c6a708866e7",
   "files": {
     "plugin.json": "0bc5d50758f40d240d819b061c4b6a2a9cd8f484f39609945d170c7ed43f2bf0",
-    "module.js.map": "2d326f33c5a3e1a0aeac1ad065bac2b84a82223501e706c2ebadc18f992c304c",
+    "module.js.map": "c79d4a7c9c8f5a14f1e1de809f8e0d3794b4f14318dc7cbc4c9518153c7711ff",
     "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
     "README.md": "09c0818c7a0943f15223234e82ac490c439541a4f2a64798f5da0ece02d18c63",
-    "module.js": "9696241ef63c49830cbe0427353d88853414d10feef771d6768da0197d841523",
+    "module.js": "61ac76fa37281c36dbd7ff08dbc7a47cc9a3c8a51cfee61fda7455c48d6683c7",
     "module.js.LICENSE.txt": "baaee60f991ec625a2db505281dd9d1f5ca58c2718d7a91968eb60f19550f7e6",
     "index.html": "2fa2c4168c5bb7b8502989f437e4a1a71e663702b0ec9c01530215c8c026dcaf",
     "img/logo.svg": "1defc6f7e585c67657bcfd8fddc599ee7dfa82f8674413f49fa274c2cd453ec6"
@@ -29,9 +29,9 @@ Hash: SHA512
 Version: OpenPGP.js v4.10.1
 Comment: https://openpgpjs.org
 
-wqAEARMKAAYFAmA3I2IACgkQfk0ManCIZueXDAIGKvRka4RSAzCtRi3TKRvB
-P+H04WMXxuUsDr/cBXv3dvSwrWs/ZbpReqHGqRkJ7Qxi1IEHduP8mIHy/hHm
-RRGEhf8CCLpk6e91X7jIjSygwl2IgV/A/o9JwFjsk3En8GI47OJXIjw04RlS
-POokekIIp+kgvBQmYQhR/WwEILc5LEN+BSHA
-=E91k
+wqEEARMKAAYFAmA3JHoACgkQfk0ManCIZue0WAIFHrvZ7nrER06gFSABUVx/
+Ie8hxyyK7u1dyInO8Lm6KdPUowYbXCQ0jPceDz0RHVFpLEpcXlD2CYmpeNZB
+bWjhM4YCCQGbb9KrnFTJ0hoAc6ZqOrxqrUhEsjcmLykRwjjCDceU5EgDi8bc
+MX+HXYvS58OEu/Yj6ZUbwg4yyOkQt4nXX4iwOQ==
+=tdnA
 -----END PGP SIGNATURE-----

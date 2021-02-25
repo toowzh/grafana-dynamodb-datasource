@@ -53,14 +53,14 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
         ExpressionAttributeValues: expressionAttributeValues,
       };
 
-      const results = this.doQuery(queryInput);
+      const results = this.doQuery(queryInput, query);
       return this.processData(results, query);
     });
 
     return Promise.all(promises).then((data) => ({ data }));
   }
 
-  async doQuery(queryInput: AWS.DynamoDB.QueryInput) {
+  async doQuery(queryInput: AWS.DynamoDB.QueryInput, query: Partial<DynamoDBQuery> & DynamoDBQuery) {
     let _queryInput = { ...queryInput };
     let response = await this.dynamoDB.query(_queryInput).promise();
     let temp = response.Items;
@@ -80,7 +80,7 @@ export class DataSource extends DataSourceApi<DynamoDBQuery, DynamoDBOptions> {
       results = results.concat(response.Items.map((x) => AWS.DynamoDB.Converter.unmarshall(x)));
       console.log(response.Items);
     }
-    results = results.sort((a, b) => a['date_time'] - b['date_time']);
+    results = results.sort((a, b) => a[query.timeField] - b[query.timeField]);
     return results;
   }
 
