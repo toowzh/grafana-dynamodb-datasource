@@ -1,32 +1,20 @@
-# Grafana Data Source Plugin Template
+Grafana DynamoDB Datasource Plugin
+===
+This plugin is for connecting Grafana to AWS DynamoDB.
 
-[![CircleCI](https://circleci.com/gh/grafana/simple-datasource/tree/master.svg?style=svg)](https://circleci.com/gh/grafana/simple-datasource/tree/master)
-
-This template is a starting point for building Grafana Data Source Plugins
-
-## What is Grafana Data Source Plugin?
-Grafana supports a wide range of data sources, including Prometheus, MySQL, and even Datadog. There’s a good chance you can already visualize metrics from the systems you have set up. In some cases, though, you already have an in-house metrics solution that you’d like to add to your Grafana dashboards. Grafana Data Source Plugins enables integrating such solutions with Grafana.
 
 ## Getting started
-1. Install dependencies
-```BASH
-yarn install
+```bash
+# cd /var/lib/grafana/plugins/
+# git clone https://github.com/TLV-PMOP/grafana-dynamodb-datasource.git
+# service grafana-server restart
 ```
-2. Build plugin in development mode or run in watch mode
-```BASH
-yarn dev
-```
-or
-```BASH
-yarn watch
-```
-3. Build plugin in production mode
-```BASH
-yarn build
-```
+Plugins directory depends your environment.
 
-## Learn more
-- [Build a data source plugin tutorial](https://grafana.com/tutorials/build-a-data-source-plugin)
-- [Grafana documentation](https://grafana.com/docs/)
-- [Grafana Tutorials](https://grafana.com/tutorials/) - Grafana Tutorials are step-by-step guides that help you make the most of Grafana
-- [Grafana UI Library](https://developers.grafana.com/ui) - UI components to help you build interfaces using Grafana Design System
+## Usage
+![](Docs/2022-03-22_08h25_18.png)
+1. Table name<br>Choose the table name you want to show.
+1. Time field<br>Input time field name.
+1. Key condition expression<br>Input key condition expression. Refer the AWS page [KeyConditions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.KeyConditions.html)
+1. Expression attribute values<br>Input expression attribute values. By pressiong + button, you can add fields.
+1. Value fields<br>Input field including value. You can specify multiple field.
